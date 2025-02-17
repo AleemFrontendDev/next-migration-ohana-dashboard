@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import "./stylesheet.css";
 import Tab from "react-bootstrap/Tab";
@@ -232,17 +232,7 @@ const Dashboard = () => {
           ).toFixed(1);
         }
       }
-      setDepositPercentage({ decrement: decrement, increment: increment });
-      var arrayGroupedDeposit = Array.from(groupedDeposit, (item) =>
-        typeof item === "undefined" || item < 0 ? 0 : item
-      ).slice(-6);
 
-      setPreviousSixMonthsDepositTotal(
-        // typeof totalAmount === "number"
-        //   ? totalAmount.toFixed(2)
-        //   : totalAmount.map((item) => item.toFixed(2))
-        arrayGroupedDeposit.map((item) => item.toFixed(2))
-      );
 
       const arraygroups = transactionList
         .filter((doc) => doc.status == "Completed")
@@ -356,13 +346,6 @@ const Dashboard = () => {
           ).toFixed(1);
         }
       }
-      setWithdrawPercentage({ decrement: decrement, increment: increment });
-      var arrayGroupedWithdraw = Array.from(groupedWithdraw, (item) =>
-        typeof item === "undefined" || item < 0 ? 0 : item
-      ).slice(-6);
-      setPreviousSixMonthsWithdrawTotal(
-        arrayGroupedWithdraw.map((item) => item.toFixed(2))
-      );
       setSpinner(false);
     }
     if (user || !user?.role_id) {
@@ -455,7 +438,7 @@ const Dashboard = () => {
 
   useInterval(fetchPermissionsAndTransactions, 20000, 5);
 
-  useMemo(() => {
+  useEffect(() => {
     if (permissions) {
       setTimeout(function async() {
         const ctx = document.getElementById("deposit")?.getContext("2d");
@@ -489,7 +472,6 @@ const Dashboard = () => {
           backgroundColor: background,
           borderColor: border,
           borderWidth: 1,
-          fill: true, // 3: no fill
         },
       ],
     };
