@@ -131,19 +131,17 @@ export function UserForm({ initialValues, editUser, onSubmit, orgId }) {
     );
     const jsonData = await response.json();
     console.log("roles data api response jsonData", jsonData);
-    if (jsonData.status === "success") {
-      const rolesArray = [];
-      jsonData?.data?.forEach((role) => {
-        if (role) {
-          rolesArray.push({
+    if (jsonData.status === "success" && Array.isArray(jsonData.data)) {
+        const rolesArray = jsonData.data.map((role) => ({
             label: role.name,
             value: role.id,
-          });
-        }
-      });
-      setRolesArray(rolesArray);
-      setRolesDataFetch(true);
+        }));
+        setRolesArray(rolesArray);
+    } else {
+        console.error("Invalid roles data:", jsonData.data);
+        setRolesArray([]);
     }
+    setRolesDataFetch(true);
   };
 
   const fetchCountries = async () => {

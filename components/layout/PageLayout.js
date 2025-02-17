@@ -4,7 +4,7 @@ import Spinner from "react-bootstrap/Spinner";
 
 const PageLayout = ({ spinner, permissions, children }) => {
   return (
-    <div className='w-full h-screen'>
+    <div className='w-full min-h-screen'>
       {permissions && !spinner ? (
         children
       ) : spinner ? (
