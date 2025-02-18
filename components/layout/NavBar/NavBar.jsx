@@ -1,5 +1,6 @@
 "use client";
 
+import * as Tabs from '@radix-ui/react-tabs';
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -37,6 +38,10 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen, isMobileMenuOpen, setisMobileMenuOp
     typeof window !== "undefined" ? JSON.parse(localStorage.getItem("selectedCountry")) : null
   );
   const [selectedLanguageName, setSelectedLanguageName] = useState("English");
+
+  const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+  const firstName = loggedInUser ? loggedInUser.first_name : undefined;
+  const lastName = loggedInUser ? loggedInUser.last_name : undefined;
 
   useEffect(() => {
     const lang = localStorage.getItem("userSelectedLanguage");
@@ -131,7 +136,7 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen, isMobileMenuOpen, setisMobileMenuOp
   };
 
   return (
-    <nav className={`fixed h-[60px] ${isMenuOpen ? "w-full md:w-[95%]" : "w-full md:w-[85%]"} z-50 flex items-center justify-between bg-white px-4 py-3`}>
+    <nav className={`fixed h-[60px] ${isMenuOpen ? "w-full md:w-[95%]" : "w-full md:w-[85%]"} z-50 flex items-center justify-between bg-black px-4 py-3`}>
       <div className="flex md:hidden items-center">
       <Image
         src={`/assets/images/logo-mini.png`}
@@ -141,15 +146,47 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen, isMobileMenuOpen, setisMobileMenuOp
         height={50}
       />
       </div>
-      <Button variant="ghost" className="group focus:outline-none focus:ring-0 p-2 hidden md:block" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-        <Menu className="w-6 h-6 text-gray-800" />
-      </Button>
+
+      <div className="flex items-center space-x-4 w-full md:w-auto ml-10 md:m-0">
+        <button className="group focus:outline-none focus:ring-0 p-2 md:block" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <Menu className="w-6 h-6 text-white group-hover:text-black" />
+        </button>
+
+        <Tabs.Root
+          defaultValue="user-groups"
+          className="flex items-center space-x-2 md:space-x-4 bg-white text-black p-1 rounded-lg w-full md:w-auto overflow-auto"
+        >
+          <Tabs.List className="flex space-x-1 md:space-x-2">
+            <Tabs.Trigger
+              value="user-groups"
+              className="px-3 md:px-4 py-2 text-md font-medium rounded-lg focus:outline-none transition-colors 
+                data-[state=active]:bg-[#F5BE4A] data-[state=active]:text-black"
+            >
+              User Groups
+            </Tabs.Trigger>
+            <Tabs.Trigger
+              value="org-groups"
+              className="px-3 md:px-4 py-2 text-md font-medium rounded-lg focus:outline-none transition-colors 
+                data-[state=active]:bg-[#ffbb22] data-[state=active]:text-black"
+            >
+              Org Groups
+            </Tabs.Trigger>
+            <Tabs.Trigger
+              value="open-saving-groups"
+              className="px-3 md:px-4 py-2 text-md font-medium rounded-lg focus:outline-none transition-colors 
+                data-[state=active]:bg-[#ffbb22] data-[state=active]:text-black"
+            >
+              Open Saving Groups
+            </Tabs.Trigger>
+          </Tabs.List>
+        </Tabs.Root>
+      </div>
 
 
       <div className="flex items-center space-x-4 mr-10">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="flex items-center space-x-1">
+            <Button variant="ghost" className="flex items-center space-x-1 bg-white p-2">
               <Globe className="w-5 h-5 text-gray-800" />
               <span>{selectedLanguageName}</span>
               <ChevronDown className="w-4 h-4 text-gray-800" />
@@ -186,7 +223,11 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen, isMobileMenuOpen, setisMobileMenuOp
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost">
+            <Button variant="ghost" className='bg-white p-3'>
+              <div className="hidden md:block text-black text-left text-md">
+                <p className="font-medium">{firstName} {lastName}</p>
+                <p className="text-xs text-gray-400">{lastName}</p>
+              </div>
               <ChevronDown className="w-2 h-4 text-gray-800" />
             </Button>
           </DropdownMenuTrigger>
