@@ -17,6 +17,7 @@ import useUser from "@/hooks/useUser";
 import { Trans } from "react-i18next";
 import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 const transactionType = [
   "Pay For",
@@ -41,7 +42,7 @@ export function Transactions() {
   const [filter, setFilter] = useState("");
   const { country } = useCountry();
   const { user } = useUser();
-  const authToken = useMemo(() => (typeof window !== "undefined" ? localStorage.getItem("Auth Token") : null), []);
+  const authToken = useAuthToken();
   const [totalTransactions, setTotalTransactions] = useState(0);
   const [currentPage, setCurrentPage] = useState({ page: 1, sizePerPage: 10 });
   const { page, sizePerPage } = currentPage;

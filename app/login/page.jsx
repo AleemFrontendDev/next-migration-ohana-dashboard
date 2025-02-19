@@ -8,8 +8,11 @@ import Footer from "@/components/layout/Footer/Footer";
 import { BASE_URL, ROUTES } from "@/utils/common";
 import useCountry from "@/hooks/useCountry";
 import useUser from "@/hooks/useUser";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 export default function Login() {
+  const authToken = useAuthToken();
+  console.log(authToken)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailWrong, setEmailWrong] = useState("");
@@ -156,8 +159,6 @@ export default function Login() {
   };
 
   const getUSDRateApi = async () => {
-    const authToken = localStorage.getItem("Auth Token");
-    console.log("authToken", authToken);
     const rate = await fetch(`${BASE_URL}/getUSDRate`, {
       method: "GET",
       headers: {

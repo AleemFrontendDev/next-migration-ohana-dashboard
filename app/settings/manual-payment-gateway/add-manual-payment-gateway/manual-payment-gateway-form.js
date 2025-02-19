@@ -11,6 +11,7 @@ import makeAnimated from "react-select/animated";
 import { BASE_URL, ROUTES } from "@/utils/common";
 import { MANUAL_PAYMENT_GATEWAY_FORMIK } from "@/utils/formik-data";
 import BootstrapSwitchButton from "bootstrap-switch-button-react";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 const animatedComponents = makeAnimated();
 
@@ -18,7 +19,7 @@ export function ManualPaymentGatewayForm(props) {
   const { initialValues, setValues, toForm } = props;
 
   const [countries, setCountries] = useState([]);
-  const authToken = localStorage.getItem("Auth Token");
+  const authToken = useAuthToken();
 
   const fetchCountries = async () => {
     const response = await fetch(`${BASE_URL}/countries?page=1&size=1000`, {

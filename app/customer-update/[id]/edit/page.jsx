@@ -10,6 +10,7 @@ import useInterval, { BASE_URL, ROUTES } from "@/utils/common";
 import Spinner from "react-bootstrap/Spinner";
 import useCountry from "@/hooks/useCountry";
 import useUser from "@/hooks/useUser";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 export default function EditCustomer() {
   const { id } = useParams();
@@ -18,7 +19,7 @@ export default function EditCustomer() {
   const [userId, setUserId] = useState("");
   const [spinner, setSpinner] = useState(false);
   const [selectedUser, setSelectedUser] = useState({});
-  const authToken = localStorage.getItem("Auth Token");
+  const authToken = useAuthToken();
   const { country } = useCountry();
   const { user } = useUser();
   const [{ values }, setState] = useState({

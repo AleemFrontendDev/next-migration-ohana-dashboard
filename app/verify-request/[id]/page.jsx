@@ -13,6 +13,7 @@ import { doc, updateDoc, getDoc, setDoc } from "firebase/firestore";
 import db from "@/firebase/firebase-config";
 import { sendPushNotification } from "@/utils/send-push-notification";
 import Image from "next/image";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 
 // Modal For Image displaying
@@ -74,7 +75,7 @@ export function VerifyRequestDetails() {
   const [totalNumUsers, setTotalNumUsers] = useState(0);
   const [totalUsers, setTotalUsers] = useState(0);
   const [spinner, setSpinner] = useState(false);
-  const authToken = useMemo(() => (typeof window !== "undefined" ? localStorage.getItem("Auth Token") : null), []);
+  const authToken = useAuthToken();
   const date = new Date();
   const { country } = useCountry();
   const { user } = useUser();

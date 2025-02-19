@@ -17,6 +17,7 @@ import { useParams } from "next/navigation";
 import PageLayout from "@/components/layout/PageLayout";
 import Link from "next/link";
 import { Trans } from "react-i18next";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 const transactionType = ["Contributed", "Missed"];
 
@@ -28,7 +29,7 @@ export function PoolContributions() {
   const [filter, setFilter] = useState("");
   const { country } = useCountry();
   const { user } = useUser();
-  const authToken = localStorage.getItem("Auth Token");
+  const authToken = useAuthToken();
   const [totalTransactions, setTotalTransactions] = useState(0);
   const [currentPage, setCurrentPage] = useState({ page: 1, sizePerPage: 10 });
   const { page, sizePerPage } = currentPage;

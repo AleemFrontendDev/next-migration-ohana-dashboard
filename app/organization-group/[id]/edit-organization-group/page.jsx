@@ -7,8 +7,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { useParams } from "next/navigation";
 import OrganizationGroupEditForm from "./organization_group_edit_form";
-// import db from "../../firebase-config";
-import { firestore } from "@/firebase/firebase-config"; // Adjust the path as necessary
+import db from "@/firebase/firebase-config";
 
 import {
   collection,
@@ -17,8 +16,9 @@ import {
   doc,
   getDoc,
 } from "firebase/firestore";
+import { useAuthToken } from "@/utils/useAuthToken";
 
-const authToken = localStorage.getItem("Auth Token");
+const authToken = useAuthToken();
 function EditOrganizationGroup() {
   const { user } = useUser();
   const [permissions, setPermissions] = useState(0);
@@ -273,13 +273,13 @@ function EditOrganizationGroup() {
 
   const handleUpdate = async (updatedData) => {
     try {
-      const groupRef = doc(firestore, "group_chats", groupId);
+      const groupRef = doc(db, "group_chats", groupId);
 
       await updateDoc(groupRef, {
         group_title: updatedData,
       });
 
-      const querySnapshot = await getDocs(collection(firestore, "group_chats"));
+      const querySnapshot = await getDocs(collection(db, "group_chats"));
 
       querySnapshot.forEach((doc) => {
         console.log(doc.id, " => ", doc.data());

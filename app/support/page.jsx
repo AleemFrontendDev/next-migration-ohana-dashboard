@@ -19,6 +19,7 @@ import Spinner from "react-bootstrap/Spinner";
 import useCountry from "@/hooks/useCountry";
 import useUser from "@/hooks/useUser";
 import { sendPushNotification } from "@/utils/send-push-notification";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 export function Support() {
   const [users, setUsers] = useState([]);
@@ -33,7 +34,7 @@ export function Support() {
   const { country } = useCountry();
   const { user } = useUser();
   const date = new Date();
-  const authToken = localStorage.getItem("Auth Token");
+  const authToken = useAuthToken();
 
   const fetchUsersIds = async () => {
     // if (db.auth.currentUser) {

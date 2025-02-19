@@ -16,6 +16,7 @@ import ToolkitProvider, {
 import Spinner from "react-bootstrap/Spinner";
 import useCountry from "@/hooks/useCountry";
 import useUser from "@/hooks/useUser";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 export function VerifyRequests() {
   const [users, setUsers] = useState([]);
@@ -25,11 +26,7 @@ export function VerifyRequests() {
   const { country } = useCountry();
   const { user } = useUser();
   const [totalUsers, setTotalUsers] = useState(0);
-  const authToken = useMemo(
-    () =>
-      typeof window !== "undefined" ? localStorage.getItem("Auth Token") : null,
-    []
-  );
+  const authToken = useAuthToken();
   const [currentPage, setCurrentPage] = useState({ page: 1, sizePerPage: 10 });
   const { page, sizePerPage } = currentPage;
   const [sort, setSort] = useState({ field: "", order: "" });

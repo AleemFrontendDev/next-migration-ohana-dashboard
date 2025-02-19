@@ -10,13 +10,14 @@ import useCountry from "@/hooks/useCountry";
 import useUser from "@/hooks/useUser";
 import PageLayout from "@/components/layout/PageLayout";
 import Link from "next/link";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 export function CustomerDetails() {
   const { id } = useParams();
   const [customer, setCustomer] = useState({});
   const [permissions, setPermissions] = useState(0);
   const [spinner, setSpinner] = useState(true);
-  const authToken = localStorage.getItem("Auth Token");
+  const authToken = useAuthToken();
   const { country } = useCountry();
   const { user } = useUser();
 

@@ -8,13 +8,14 @@ import { BASE_URL } from "../../../basic-ui/common";
 import useUser from "../../../hooks/useUser";
 import PageLayout from "../../../layout/layout";
 import { toast } from "react-toastify";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 export default function AddUser() {
   const history = useHistory();
   const [permissions, setPermissions] = useState(0);
   const [spinner, setSpinner] = useState(true);
   const { user } = useUser();
-  const authToken = localStorage.getItem("Auth Token");
+  const authToken = useAuthToken();
 
   const fetchPermissions = async () => {
     if (!user.role_id) {

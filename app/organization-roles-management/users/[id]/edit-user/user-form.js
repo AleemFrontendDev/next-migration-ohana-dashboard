@@ -14,6 +14,7 @@ import parsePhoneNumberFromString from "libphonenumber-js";
 
 import * as Yup from "yup";
 import { Trans } from "react-i18next";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 const animatedComponents = makeAnimated();
 
@@ -29,7 +30,7 @@ export function UserForm({ initialValues, editUser, onSubmit, orgId }) {
   console.log("organizationId 29", organizationId)
 
 
-  const authToken = localStorage.getItem("Auth Token");
+  const authToken = useAuthToken();
   const { user } = useUser();
 
   const [rolesList, setRolesArray] = useState([]);

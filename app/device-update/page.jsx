@@ -22,6 +22,7 @@ import useUser from "../../hooks/useUser";
 import { Trans } from "react-i18next";
 import { toast } from "react-toastify";
 import { Button } from "react-bootstrap";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 export function DeviceUpdate() {
   const [users, setUsers] = useState([]);
@@ -42,7 +43,7 @@ export function DeviceUpdate() {
   const date = new Date();
   const { country } = useCountry();
   const { user } = useUser();
-  const authToken = localStorage.getItem("Auth Token");
+  const authToken = useAuthToken();
   const [currentPage, setCurrentPage] = useState({ page: 1, sizePerPage: 10 });
   const { page, sizePerPage } = currentPage;
   const [sort, setSort] = useState({ field: "", order: "" });

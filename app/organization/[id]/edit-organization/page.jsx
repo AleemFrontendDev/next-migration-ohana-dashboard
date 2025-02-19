@@ -5,6 +5,7 @@ import { BASE_URL } from "@/utils/common";
 import useUser from "@/hooks/useUser";
 import PageLayout from "@/components/layout/PageLayout";
 import OrganizationEditForm from "./OrganizationEditForm";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 function EditOrganization() {
   const { id } = useParams();
@@ -15,7 +16,7 @@ function EditOrganization() {
   const [orgData, setOrgData] = useState(null);
 
   const fetchOrganizationDataAndPermissions = async () => {
-    const authToken = localStorage.getItem("Auth Token");
+  const authToken = useAuthToken();  
     try {
       const response = await fetch(`${BASE_URL}/get-organization-by-id`, {
         method: "POST",

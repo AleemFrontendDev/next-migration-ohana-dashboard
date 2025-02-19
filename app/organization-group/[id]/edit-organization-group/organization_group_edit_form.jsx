@@ -11,9 +11,10 @@ import { parsePhoneNumberFromString } from "libphonenumber-js";
 import { BASE_URL } from "@/utils/common";
 
 import makeAnimated from "react-select/animated";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 const animatedComponents = makeAnimated();
-const authToken = localStorage.getItem("Auth Token");
+const authToken = useAuthToken();
 
 function OrganizationGroupEditForm({
   initialValues,

@@ -17,6 +17,7 @@ import ToolkitProvider, {
 import Spinner from "react-bootstrap/Spinner";
 import useCountry from "@/hooks/useCountry";
 import useUser from "@/hooks/useUser";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 export function ManualPayment() {
   const [manualPayments, setManualPayments] = useState([]);
@@ -29,7 +30,7 @@ export function ManualPayment() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const authToken = localStorage.getItem("Auth Token");
+  const authToken = useAuthToken();
   const [totalManualPayments, setTotalManualPayments] = useState(0);
   const [currentPage, setCurrentPage] = useState({ page: 1, sizePerPage: 10 });
   const { page, sizePerPage } = currentPage;

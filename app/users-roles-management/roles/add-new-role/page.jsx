@@ -14,6 +14,7 @@ import Spinner from "react-bootstrap/Spinner";
 import useCountry from "@/hooks/useCountry";
 import useUser from "@/hooks/useUser";
 import { Trans } from "react-i18next";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 const schema = yup.object().shape({
   status: yup.bool().required(),
@@ -26,7 +27,7 @@ export function AddNewRole() {
   const [spinner, setSpinner] = useState(false);
   const { country } = useCountry();
   const { user } = useUser();
-  const authToken = localStorage.getItem("Auth Token");
+  const authToken = useAuthToken();
 
   const fetchPermissions = async () => {
     if (!user.role_id) {

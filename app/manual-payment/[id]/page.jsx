@@ -10,6 +10,7 @@ import Spinner from "react-bootstrap/Spinner";
 import useCountry from "@/hooks/useCountry";
 import useUser from "@/hooks/useUser";
 import { Trans } from "react-i18next";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 export function ManualPaymentDetails() {
   //   const router = useRouter();
@@ -18,7 +19,7 @@ export function ManualPaymentDetails() {
   const [payedByUser, setPayedByUser] = useState({});
   const [permissions, setPermissions] = useState(0);
   const [spinner, setSpinner] = useState(false);
-  const authToken = useMemo(() => (typeof window !== "undefined" ? localStorage.getItem("Auth Token") : null), []);
+  const authToken = useAuthToken();
   const { country } = useCountry();
   const { user } = useUser();
 

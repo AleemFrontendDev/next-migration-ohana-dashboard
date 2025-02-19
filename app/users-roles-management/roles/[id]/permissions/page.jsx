@@ -20,6 +20,7 @@ import BootstrapSwitchButton from "bootstrap-switch-button-react";
 import Spinner from "react-bootstrap/Spinner";
 import useCountry from "@/hooks/useCountry";
 import useUser from "@/hooks/useUser";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 export function RolePermissions() {
   const { id } = useParams();
@@ -30,7 +31,7 @@ export function RolePermissions() {
   const [spinner, setSpinner] = useState(true);
   const { country } = useCountry();
   const { user } = useUser();
-  const authToken = localStorage.getItem("Auth Token");
+  const authToken = useAuthToken();
   const [totalPermissions, setTotalPermissions] = useState(0);
   const [currentPage, setCurrentPage] = useState({ page: 1, sizePerPage: 10 });
   const { page, sizePerPage } = currentPage;

@@ -19,6 +19,7 @@ import useCountry from "../../../../hooks/useCountry";
 import useUser from "../../../../hooks/useUser";
 import { toast } from "react-toastify";
 import { Trans } from "react-i18next";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 const animatedComponents = makeAnimated();
 
@@ -42,7 +43,7 @@ export function AddNewPermission() {
   const { country } = useCountry();
   const { user } = useUser();
   console.log("42", user.role_id);
-  const authToken = localStorage.getItem("Auth Token");
+const authToken = useAuthToken();
 
   const fetchSections = async () => {
     const response = await fetch(`${BASE_URL}/get-all-org-permissions`, {

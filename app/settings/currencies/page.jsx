@@ -15,6 +15,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import BootstrapSwitchButton from 'bootstrap-switch-button-react';
 import useCountry from '@/hooks/useCountry';
 import useUser from '@/hooks/useUser';
+import { useAuthToken } from '@/utils/useAuthToken';
 
 export function Currencies() {
     const [ currencies, setCurrencies ] = useState([]);
@@ -22,7 +23,7 @@ export function Currencies() {
     const [ spinner, setSpinner ] = useState(true);
     const { country } = useCountry();
     const { user } = useUser();
-    const authToken = localStorage.getItem('Auth Token');
+    const authToken = useAuthToken();
     const [ totalCurrencies, setTotalCurrencies ] = useState(0);
     const [ currentPage, setCurrentPage ] = useState({page: 1, sizePerPage: 10});
     const { page, sizePerPage } = currentPage;

@@ -20,6 +20,7 @@ import useCountry from "@/hooks/useCountry";
 import useUser from "@/hooks/useUser";
 import '@/lib/i18n'
 import Link from "next/link";
+import { useAuthToken } from '@/utils/useAuthToken';
 
 const languageOptions = [
   { name: "English", value: "en" },
@@ -31,7 +32,7 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen, isMobileMenuOpen, setisMobileMenuOp
   const { i18n } = useTranslation();
   const { countryChange } = useCountry();
   const { user } = useUser();
-  const authToken = typeof window !== "undefined" ? localStorage.getItem("Auth Token") : null;
+  const authToken = useAuthToken();
 
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState(
@@ -136,18 +137,18 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen, isMobileMenuOpen, setisMobileMenuOp
   };
 
   return (
-    <nav className={`fixed h-[60px] ${isMenuOpen ? "w-full md:w-[95%]" : "w-full md:w-[85%]"} z-50 flex items-center justify-between bg-black px-4 py-3`}>
-      <div className="flex md:hidden items-center">
-      <Image
-        src={`/assets/images/logo-mini.png`}
-        alt="Ohana Africa"
-        className="w-full h-full object-cover"
-        width={50}
-        height={50}
-      />
-      </div>
+    <nav className={`fixed ${isMenuOpen ? "w-full md:w-[95%]" : "w-full md:w-[85%]"} z-50 flex flex-col md:flex-row items-center justify-between bg-black px-4 py-3`}>
 
       <div className="flex items-center space-x-4 w-full md:w-auto ml-10 md:m-0">
+        <div className="flex md:hidden items-center">
+        <Image
+          src={`/assets/images/logo-mini.png`}
+          alt="Ohana Africa"
+          className="w-full h-full object-cover"
+          width={50}
+          height={50}
+        />
+        </div>
         <button className="group focus:outline-none focus:ring-0 p-2 md:block" onClick={() => setIsMenuOpen(!isMenuOpen)}>
           <Menu className="w-6 h-6 text-white group-hover:text-black" />
         </button>

@@ -16,8 +16,9 @@ import makeAnimated from "react-select/animated";
 import Select from "react-select";
 import parsePhoneNumberFromString from "libphonenumber-js";
 import Link from "next/link";
+import { useAuthToken } from "@/utils/useAuthToken";
 
-const authToken = localStorage.getItem("Auth Token");
+const authToken = useAuthToken();
 const animatedComponents = makeAnimated();
 
 function OrganizationEditForm({ initialData, isEditing, id }) {

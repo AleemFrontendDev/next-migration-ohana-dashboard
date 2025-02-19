@@ -20,6 +20,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 import Modal from "@/components/group/Modal";
 import { Trans } from "react-i18next";
 import { sendPushNotification } from "@/utils/send-push-notification";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 function GroupUsers() {
   const { id } = useParams();
@@ -45,7 +46,7 @@ function GroupUsers() {
   const [textMessage, setTextMessage] = useState("");
   const [selectedUser, setSelectedUser] = useState(0);
   const date = new Date();
-  const authToken = localStorage.getItem("Auth Token");
+  const authToken = useAuthToken();
 
   const fetchGroupUsersAndPermissions = async () => {
     const authToken = localStorage.getItem("Auth Token");

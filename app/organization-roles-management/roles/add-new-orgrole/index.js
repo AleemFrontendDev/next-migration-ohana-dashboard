@@ -14,6 +14,7 @@ import useUser from "../../../hooks/useUser";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Trans } from "react-i18next";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 const schema = yup.object().shape({
   status: yup.bool().required(),
@@ -28,7 +29,7 @@ export function AddNewRole() {
   console.log("organizations", organizations);
   const { country } = useCountry();
   const { user } = useUser();
-  const authToken = localStorage.getItem("Auth Token");
+const authToken = useAuthToken();
   console.log("user", user);
   //   const fetchPermissions = async () => {
   //     if (!user.role_id) {

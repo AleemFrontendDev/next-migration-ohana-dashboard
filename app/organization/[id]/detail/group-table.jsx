@@ -20,6 +20,7 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import { Trans } from "react-i18next";
 import { sendPushNotification } from "@/utils/send-push-notification";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 export function OrganizationGroupTable({ org_id }) {
   const { id } = useParams();
@@ -51,7 +52,7 @@ export function OrganizationGroupTable({ org_id }) {
   const [search, setSearch] = useState("");
   const { user } = useUser();
   const date = new Date();
-  const authToken = localStorage.getItem("Auth Token");
+  const authToken = useAuthToken();
 
   const fetchOrganizationDataAndPermissions = async () => {
     try {

@@ -10,6 +10,7 @@ import { Trans } from "react-i18next";
 import OrganizationGroupTable from "./group-table";
 import BootstrapSwitchButton from "bootstrap-switch-button-react";
 import OrganizationAdminsAccordion from "@/components/Organizations/OrganizationAccordion";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 export function OrganizationDetail({ org_id, org_dahboard }) {
   const { id } = useParams();
@@ -26,7 +27,7 @@ export function OrganizationDetail({ org_id, org_dahboard }) {
   const [spinner, setSpinner] = useState(true);
   const [totalGroups, setTotalGroups] = useState(0);
   const { user } = useUser();
-  const authToken = localStorage.getItem("Auth Token");
+  const authToken = useAuthToken();
   const statusChange = async (check, row) => {
     // Update Group Status.
     // if (permissions.edit) {

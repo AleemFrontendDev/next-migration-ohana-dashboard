@@ -5,13 +5,14 @@ import useInterval, { BASE_URL, ROUTES } from "../basic-ui/common";
 import useCountry from "../hooks/useCountry";
 import useUser from "../hooks/useUser";
 import PageLayout from "../layout/layout";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 export function CustomerDetails() {
   const { id } = useParams();
   const [customer, setCustomer] = useState({});
   const [permissions, setPermissions] = useState(0);
   const [spinner, setSpinner] = useState(true);
-  const authToken = localStorage.getItem("Auth Token");
+  const authToken = useAuthToken();
   const { country } = useCountry();
   const { user } = useUser();
 

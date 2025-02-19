@@ -12,6 +12,7 @@ import makeAnimated from "react-select/animated";
 import { BASE_URL, ROUTES } from "@/utils/common";
 import { UPDATE_CUSTOMER_FORMIK } from "@/utils/formik-data";
 import { Trans } from "react-i18next";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 const animatedComponents = makeAnimated();
 
@@ -23,7 +24,7 @@ export function CustomerForm(props) {
   const { initialValues, setValues, toForm } = props;
   const [roles, setRoles] = useState([]);
   const [countries, setCountries] = useState([]);
-  const authToken = localStorage.getItem("Auth Token");
+  const authToken = useAuthToken();
 
   const fetchRoles = async () => {
     const response = await fetch(`${BASE_URL}/roles?page=1&size=1000`, {

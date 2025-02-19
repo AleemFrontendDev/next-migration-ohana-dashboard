@@ -6,6 +6,7 @@ import Spinner from "react-bootstrap/Spinner";
 import useInterval, { BASE_URL, ROUTES } from "@/utils/common";
 import useCountry from "@/hooks/useCountry";
 import useUser from "@/hooks/useUser";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 export function Reports() {
   const { id } = useParams();
@@ -14,11 +15,7 @@ export function Reports() {
   const [spinner, setSpinner] = useState(false);
   const { country } = useCountry();
   const { user } = useUser();
-  const authToken = useMemo(
-    () =>
-      typeof window !== "undefined" ? localStorage.getItem("Auth Token") : null,
-    []
-  );
+  const authToken = useAuthToken();
 
   const fetchWithdrawRequests = async () => {
     const response = await fetch(`${BASE_URL}/withdraw-request/${id}`, {

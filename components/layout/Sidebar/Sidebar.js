@@ -117,7 +117,7 @@ const Sidebar = ({ isMenuOpen }) => {
               }`}
               alt="Ohana Africa"
               className="w-full h-full object-cover"
-              width={130}
+              width={150}
               height={0}
             />
           </Link>

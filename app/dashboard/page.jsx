@@ -15,10 +15,12 @@ import useCountry from "@/hooks/useCountry";
 import useUser from "@/hooks/useUser";
 import TopGroups from "../../components/Dashboard/TopGroup/TopGroup";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
+import { useAuthToken } from "@/utils/useAuthToken";
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 
 const Dashboard = () => {
+  const authToken = useAuthToken();
   const [totalGroups, setTotalGroups] = useState([]);
   const [totalAmount, setTotalAmount] = useState([0]);
   const [feeCalculated, setTotalCalculated] = useState([0]);
@@ -125,7 +127,6 @@ const Dashboard = () => {
   });
 
   const { user } = useUser();
-  const authToken = localStorage.getItem("Auth Token");
   const fetchPermissions = async () => {
     const response = await fetch(`${BASE_URL}/dashboard`, {
       method: "GET",

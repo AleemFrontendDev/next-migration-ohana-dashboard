@@ -19,6 +19,7 @@ import ToolkitProvider, {
   Search,
 } from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit";
 import { toast } from "react-toastify";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 export function DeviceUpdateForm() {
   const { new_device_id, id } = useParams();
@@ -33,7 +34,7 @@ export function DeviceUpdateForm() {
   const [sort, setSort] = useState({ field: "", order: "" });
   const { field, order } = sort;
   const [search, setSearch] = useState("");
-  const authToken = localStorage.getItem("Auth Token");
+  const authToken = useAuthToken();
   const { country } = useCountry();
   const { user } = useUser();
   // const history = useHistory();

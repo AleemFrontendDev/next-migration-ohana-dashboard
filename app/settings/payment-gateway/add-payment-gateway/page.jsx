@@ -7,6 +7,7 @@ import useInterval, { BASE_URL, ROUTES } from "@/utils/common";
 import Spinner from "react-bootstrap/Spinner";
 import useCountry from "@/hooks/useCountry";
 import useUser from "@/hooks/useUser";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 export default function AddPaymentGateway() {
   const history = useRouter();
@@ -15,7 +16,7 @@ export default function AddPaymentGateway() {
   const date = new Date();
   const { country } = useCountry();
   const { user } = useUser();
-  const authToken = localStorage.getItem("Auth Token");
+  const authToken = useAuthToken();
   const [{ values }, setState] = useState({
     showUserSummary: false,
     values: { ...PAYMENT_GATEWAY_FORMIK.initialValues },

@@ -9,6 +9,7 @@ import useUser from "../../../hooks/useUser";
 import PageLayout from "../../../layout/layout";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { toast } from "react-toastify";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 export default function EditUser() {
   const { appId, orgId, id } = useParams();
@@ -21,7 +22,7 @@ export default function EditUser() {
   const [spinner, setSpinner] = useState(true);
   //   const [selectedUser, setSelectedUser] = useState({});
 
-  const authToken = localStorage.getItem("Auth Token");
+  const authToken = useAuthToken();
   //   const { country } = useCountry();
   const { user } = useUser();
   const [initalData, setInitialData] = useState(null);

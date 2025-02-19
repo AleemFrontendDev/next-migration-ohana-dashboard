@@ -9,6 +9,7 @@ import useInterval, { BASE_URL, ROUTES } from "@/utils/common";
 import Spinner from "react-bootstrap/Spinner";
 import useCountry from "@/hooks/useCountry";
 import useUser from "@/hooks/useUser";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 export default function EditManualPaymentGateway() {
   const { id } = useParams();
@@ -16,7 +17,7 @@ export default function EditManualPaymentGateway() {
   const [permissions, setPermissions] = useState(0);
   const [spinner, setSpinner] = useState(false);
   const [paymentGateway, setPaymentGateway] = useState({});
-  const authToken = localStorage.getItem("Auth Token");
+  const authToken = useAuthToken();;
   const { country } = useCountry();
   const { user } = useUser();
   const [{ values }, setState] = useState({

@@ -8,6 +8,7 @@ import db from "@/firebase/firebase-config";
 import Link from "next/link";
 import PageLayout from "@/components/layout/PageLayout";
 import { Trans } from "react-i18next";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 const CustomModal = ({ show, onClose, onSave, updatedName, setUpdatedName, type }) => {
   if (!show) return null;
@@ -35,6 +36,7 @@ const CustomModal = ({ show, onClose, onSave, updatedName, setUpdatedName, type 
 };
 
 function GroupDetail() {
+  const authToken = useAuthToken();
   const { id } = useParams();
   const [spinner, setSpinner] = useState(true);
   const [permissions, setPermissions] = useState(0);
@@ -86,7 +88,6 @@ function GroupDetail() {
   const { user } = useUser();
 
   const fetchGroupDetailAndPermissions = async () => {
-    const authToken = localStorage.getItem("Auth Token");
     try {
       const response = await fetch(`${BASE_URL}/get-org-group-detail-by-id`, {
         method: "POST",
@@ -156,7 +157,6 @@ function GroupDetail() {
   }, [id]);
 
   const addititletochangePools = async () => {
-    const authToken = localStorage.getItem("Auth Token");
     try {
       const response = await fetch(`${BASE_URL}/group/pool/update`, {
         method: "POST",

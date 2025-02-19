@@ -18,6 +18,7 @@ import Spinner from "react-bootstrap/Spinner";
 import useCountry from "../../hooks/useCountry";
 import useUser from "../../hooks/useUser";
 import PageLayout from "../../layout/layout";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 export function Roles() {
   const [roles, setRoles] = useState([]);
@@ -28,7 +29,7 @@ export function Roles() {
   // const history = useHistory();
   const { country } = useCountry();
   const { user } = useUser();
-  const authToken = localStorage.getItem("Auth Token");
+  const authToken = useAuthToken();
   const [totalRoles, setTotalRoles] = useState(0);
   const [currentPage, setCurrentPage] = useState({ page: 1, sizePerPage: 10 });
   const { page, sizePerPage } = currentPage;

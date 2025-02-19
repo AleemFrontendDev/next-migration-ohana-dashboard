@@ -7,9 +7,10 @@ import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 import { BASE_URL } from "../basic-ui/common";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 const animatedComponents = makeAnimated();
-const authToken = localStorage.getItem("Auth Token");
+const authToken = useAuthToken();
 function OrganizationGroupForm({
   initialValues,
   handleSubmitFun,
