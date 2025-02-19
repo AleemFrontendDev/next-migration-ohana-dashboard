@@ -59,8 +59,9 @@ export function Roles() {
     }
 
     useEffect(() => {
+        if (!authToken) return;
         fetchRoles();
-    }, [country, page, sizePerPage, search, field, order]);
+    }, [authToken, country, page, sizePerPage, search, field, order]);
 
     useInterval(fetchRoles, 20000, 5);
 

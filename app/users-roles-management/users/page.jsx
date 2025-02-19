@@ -64,8 +64,9 @@ export function Users() {
     }
 
     useEffect(() => {
+        if (!authToken) return;
         fetchUsers();
-    }, [totalUsers, country, page, sizePerPage, search, field, order]);
+    }, [authToken, totalUsers, country, page, sizePerPage, search, field, order]);
 
     useInterval(fetchUsers, 20000, 5);
 

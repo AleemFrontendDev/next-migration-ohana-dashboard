@@ -69,8 +69,9 @@ export function PaymentGateway() {
   };
 
   useEffect(() => {
+    if (!authToken) return;
     fetchPermissionsAndPaymentGateway();
-  }, [country, page, sizePerPage, search, field, order, filter]);
+  }, [authToken, country, page, sizePerPage, search, field, order, filter]);
 
   useInterval(fetchPermissionsAndPaymentGateway, 20000, 5);
 

@@ -64,8 +64,9 @@ export function Withdraw() {
   };
 
   useEffect(() => {
+    if (!authToken) return;
     fetchPermissionsAndWithdraw();
-  }, [country, page, sizePerPage, filter, search, field, order]);
+  }, [authToken, country, page, sizePerPage, filter, search, field, order]);
 
   useInterval(fetchPermissionsAndWithdraw, 20000, 5);
 

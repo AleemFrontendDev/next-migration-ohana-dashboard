@@ -76,37 +76,37 @@ export function Transactions() {
       var finalWalletDeposit = 0;
       var finalWithdrawRequest = 0;
       var finalPayfor = 0;
-      const usdRate = localStorage.getItem("usd_rates");
+      // const usdRate = localStorage.getItem("usd_rates");
     // const usdRate = '{"rates": {"USD": {"rate": 1.0}, "EUR": {"rate": 0.9}}}';
-      jsonData.totalTransactions.forEach((type, index) => {
-        var amount = type.amount;
-        var currency = type.currency;
-        var usd_rate = JSON.parse(usdRate).rates;
-        var currentRate = JSON.parse(usd_rate)[currency].rate;
-        // var currentRate = 0;
-        var calculated = 0;
-        if (currency !== "USD") {
-          calculated = amount / currentRate;
-        } else {
-          calculated = amount;
-        }
-        if (type.title === "Contribution" && type.status === "Completed") {
-          finalGroupDeposit += calculated;
-        }
-        if (type.title === "Deposit" && type.status === "Completed") {
-          finalWalletDeposit += calculated;
-        }
-        if (type.title === "Withdraw Request" && type.status === "Completed") {
-          finalWithdrawRequest += calculated;
-        }
-        if (type.title === "Pay For" && type.status === "Completed") {
-          finalPayfor += calculated;
-        }
-        if (type.status === "Completed") {
-          // console.log("type", type.status);
-          finalAmount += calculated;
-        }
-      });
+      // jsonData.totalTransactions.forEach((type, index) => {
+      //   var amount = type.amount;
+      //   var currency = type.currency;
+      //   var usd_rate = JSON.parse(usdRate).rates;
+      //   var currentRate = JSON.parse(usd_rate)[currency].rate;
+      //   // var currentRate = 0;
+      //   var calculated = 0;
+      //   if (currency !== "USD") {
+      //     calculated = amount / currentRate;
+      //   } else {
+      //     calculated = amount;
+      //   }
+      //   if (type.title === "Contribution" && type.status === "Completed") {
+      //     finalGroupDeposit += calculated;
+      //   }
+      //   if (type.title === "Deposit" && type.status === "Completed") {
+      //     finalWalletDeposit += calculated;
+      //   }
+      //   if (type.title === "Withdraw Request" && type.status === "Completed") {
+      //     finalWithdrawRequest += calculated;
+      //   }
+      //   if (type.title === "Pay For" && type.status === "Completed") {
+      //     finalPayfor += calculated;
+      //   }
+      //   if (type.status === "Completed") {
+      //     // console.log("type", type.status);
+      //     finalAmount += calculated;
+      //   }
+      // });
       setTotalAmount(finalAmount);
       setPayFor(finalPayfor);
       setWalletDeposit(finalWalletDeposit);
@@ -127,8 +127,9 @@ export function Transactions() {
   };
 
   useEffect(() => {
+    if (!authToken) return;
     fetchPermissionsAndTransactions();
-  }, [country, page, sizePerPage, filter, search, field, order]);
+  }, [authToken, country, page, sizePerPage, filter, search, field, order]);
 
   useInterval(fetchPermissionsAndTransactions, 20000, 5);
 

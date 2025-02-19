@@ -73,9 +73,10 @@ export function CustomerForm(props) {
   };
 
   useEffect(() => {
+    if (!authToken) return;
     fetchRoles();
     fetchCountries();
-  }, []);
+  }, [authToken]);
 
   const onSubmit = useCallback(
     (values) => {

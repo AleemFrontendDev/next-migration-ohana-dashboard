@@ -362,6 +362,7 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
+    if (!authToken) return;
     fetchPermissions();
 
     const previousSixMonths = (function () {
@@ -372,7 +373,7 @@ const Dashboard = () => {
       return arRet;
     })();
     setPreviousSixMonths(previousSixMonths.reverse());
-  }, [country]);
+  }, [authToken, country]);
 
   useInterval(fetchPermissions, 20000, 5);
 

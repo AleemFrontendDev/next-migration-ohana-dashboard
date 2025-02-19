@@ -218,8 +218,9 @@ export function Customers() {
   };
 
   useEffect(() => {
+    if (!authToken) return;
     fetchPermissionsAuthUserAndUsers();
-  }, [country, page, sizePerPage, filter, search, field, order]);
+  }, [authToken, country, page, sizePerPage, filter, search, field, order]);
 
   useInterval(fetchPermissionsAuthUserAndUsers, 20000, 5);
 

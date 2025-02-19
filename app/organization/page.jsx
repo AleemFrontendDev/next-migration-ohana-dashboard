@@ -19,6 +19,7 @@ import Modal from "@/components/group/Modal";
 import { BASE_URL } from "@/utils/common";
 import PageLayout from "@/components/layout/PageLayout";
 import useUser from "@/hooks/useUser";
+import { useAuthToken } from "@/utils/useAuthToken";
 
 export function Organization() {
   const [groupAdmin, setGroupAdmin] = useState({});
@@ -33,11 +34,7 @@ export function Organization() {
   const [depositCalcultationData, setTotalDepositCalcultationData] = useState(
     {}
   );
-  const authToken = useMemo(
-    () =>
-      typeof window !== "undefined" ? localStorage.getItem("Auth Token") : null,
-    []
-  );
+  const authToken = useAuthToken();
   const [currentPage, setCurrentPage] = useState({ page: 1, sizePerPage: 10 });
   const { page, sizePerPage } = currentPage;
   const [sort, setSort] = useState({ field: "", order: "" });
@@ -139,12 +136,13 @@ export function Organization() {
   };
 
   useEffect(() => {
+    if (!authToken) return;
     const delayDebounce = setTimeout(() => {
       fetchOrganizationAndPermissions();
     }, 500);
 
     return () => clearTimeout(delayDebounce);
-  }, [page, sizePerPage, filter, search, field, order]);
+  }, [authToken, page, sizePerPage, filter, search, field, order]);
 
   const columns = [
     {

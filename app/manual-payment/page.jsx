@@ -74,8 +74,9 @@ export function ManualPayment() {
   };
 
   useEffect(() => {
+    if (!authToken) return;
     fetchPermissionsAndManualPayment();
-  }, [country, page, sizePerPage, filter, search, field, order]);
+  }, [authToken, country, page, sizePerPage, filter, search, field, order]);
 
   useInterval(fetchPermissionsAndManualPayment, 20000, 5);
 

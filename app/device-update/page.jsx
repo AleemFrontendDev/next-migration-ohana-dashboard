@@ -91,8 +91,9 @@ export function DeviceUpdate() {
   };
 
   useEffect(() => {
+    if (!authToken) return;
     fetchPermissionsAuthUserAndUsers();
-  }, []);
+  }, [authToken]);
 
   useInterval(fetchPermissionsAuthUserAndUsers, 20000, 5);
 

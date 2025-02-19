@@ -68,8 +68,9 @@ export function Countries() {
   };
 
   useEffect(() => {
+    if (!authToken) return;
     fetchCountries();
-  }, [country, page, sizePerPage, search, field, order]);
+  }, [authToken, country, page, sizePerPage, search, field, order]);
 
   useInterval(fetchCountries, 20000, 5);
 

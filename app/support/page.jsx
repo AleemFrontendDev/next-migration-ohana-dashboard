@@ -84,8 +84,9 @@ export function Support() {
   };
 
   useEffect(() => {
+    if (!authToken) return;
     fetchUsersIds();
-  }, []);
+  }, [authToken]);
 
   useMemo(async () => {
     if (userIds.length) {

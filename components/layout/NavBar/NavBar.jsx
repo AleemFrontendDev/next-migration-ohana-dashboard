@@ -137,7 +137,7 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen, isMobileMenuOpen, setisMobileMenuOp
   };
 
   return (
-    <nav className={`fixed ${isMenuOpen ? "w-full md:w-[95%]" : "w-full md:w-[85%]"} z-50 flex flex-col md:flex-row items-center justify-between bg-black px-4 py-3`}>
+    <nav className={`fixed md:h-[60px] ${isMenuOpen ? "w-full md:w-[95%]" : "w-full md:w-[85%]"} z-50 flex flex-col md:flex-row items-center justify-between bg-black px-4 py-3`}>
 
       <div className="flex items-center space-x-4 w-full md:w-auto ml-10 md:m-0">
         <div className="flex md:hidden items-center">

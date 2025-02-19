@@ -58,8 +58,9 @@ export function Currencies() {
     }
 
     useEffect(() => {
+        if (!authToken) return;
         fetchCurrencies();
-    }, [country, page, sizePerPage, search, field, order]);
+    }, [authToken, country, page, sizePerPage, search, field, order]);
 
     useInterval(fetchCurrencies, 20000, 5);
 

@@ -438,8 +438,9 @@ export function Group() {
   };
 
   useEffect(() => {
+    if (!authToken) return;
     fetchGroupsAndPermissions();
-  }, [country, page, sizePerPage, filter, search, field, order]);
+  }, [authToken, country, page, sizePerPage, filter, search, field, order]);
 
   // useInterval(fetchGroupsAndPermissions, 20000, 5);
 
