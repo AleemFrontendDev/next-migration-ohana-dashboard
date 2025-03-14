@@ -35,7 +35,7 @@ export default function LayoutWrapper({ children }) {
     <>
       {!excludedRoutes.includes(pathname) && <MobileSideBar isMobileMenuOpen={isMobileMenuOpen} setisMobileMenuOpen={setisMobileMenuOpen}/>}
       <div className="flex min-h-screen">
-          {!excludedRoutes.includes(pathname) && <Sidebar isMenuOpen={isMenuOpen} />} 
+          {!excludedRoutes.includes(pathname) && <Sidebar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />} 
           <div className="w-full">
           {!excludedRoutes.includes(pathname) && <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isMobileMenuOpen={isMobileMenuOpen} setisMobileMenuOpen={setisMobileMenuOpen} />}        
             <main className="flex flex-col justify-between pt-20 px-3 md:px-x pb-5 w-full h-full bg-[#f3f3f3]">

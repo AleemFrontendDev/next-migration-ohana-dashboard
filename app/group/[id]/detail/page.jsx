@@ -153,8 +153,9 @@ function GroupDetail() {
   };
 
   useEffect(() => {
+    if(!authToken) return;
     fetchGroupDetailAndPermissions();
-  }, [id]);
+  }, [authToken, id]);
 
   const addititletochangePools = async () => {
     try {

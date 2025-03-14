@@ -30,6 +30,7 @@ export function CustomerDetails() {
       },
     });
     const jsonData = await response.json();
+    console.log(jsonData)
     if (jsonData.success) {
       setSpinner(false);
       setCustomer(jsonData.customerDetails);
@@ -47,9 +48,10 @@ export function CustomerDetails() {
   };
 
   useEffect(() => {
+    if(!authToken);
     setSpinner(true);
     fetchCustomer();
-  }, [country]);
+  }, [authToken, country]);
 
   useInterval(fetchCustomer, 20000, 5);
 

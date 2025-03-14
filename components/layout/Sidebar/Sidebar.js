@@ -21,7 +21,7 @@ import { MdPayments } from "react-icons/md";
 import { BiSupport } from "react-icons/bi";
 
 
-const Sidebar = ({ isMenuOpen }) => {
+const Sidebar = ({ isMenuOpen, setIsMenuOpen }) => {
   const pathname = usePathname();
   const [permissions, setPermissions] = useState([]);
   const [menuState, setMenuState] = useState({});
@@ -109,8 +109,8 @@ const Sidebar = ({ isMenuOpen }) => {
           isMenuOpen ? "w-[70px]" : "w-[330px]"
         } min-h-screen hidden md:block bg-[#ffbb22] text-black transition-all text-[15px] font-[540] overflow-auto`}
       >
-        <div className="flex flex-col items-center mb-8 pt-4">
-          <Link href={ROUTES.dashboard}>
+        <div className={`flex items-center ${!isMenuOpen ? 'justify-between' : 'justify-center pl-4'} mb-8 pt-4`}>
+          <Link href={ROUTES.dashboard} className={`${!isMenuOpen ? 'flex ml-10' : 'hidden'}`}>
             <Image
               src={`/assets/images/${
                 isMenuOpen ? "logo-mini.png" : "logo.png"
@@ -121,6 +121,17 @@ const Sidebar = ({ isMenuOpen }) => {
               height={0}
             />
           </Link>
+          <button onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="focus:outline-none focus:ring-0 "
+            >
+            <Image
+              src={`/arrow.svg`}
+              alt="Arrow icon"
+              className={`mr-4 mb-2 cursor-pointer ${!isMenuOpen ? "" : "rotate-180"}`}
+              width={15}
+              height={15}
+            />
+          </button>
         </div>
         <ul className={` mt-20 ${isMenuOpen ? "pl-2" : "pl-8"}`}>
           {links.map(({ href, label, icon }) =>

@@ -2,8 +2,14 @@
 const nextConfig = {
     reactStrictMode: false,
     images: {
-        domains: ["dev.ohana.africa"],
-      },
+      remotePatterns: [
+        {
+          protocol: "https",
+          hostname: "ohana.africa",
+          pathname: "/hook/public/uploads/**",
+        },
+      ],
+    },
 };
 
 export default nextConfig;

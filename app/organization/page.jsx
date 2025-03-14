@@ -568,7 +568,7 @@ export function Organization() {
                                 </div>
                               )}
                             </div>
-                            <div className="table-responsive w-[1150px]">
+                            <div className="table-responsive w-full md:w-[1150px]">
                               <BootstrapTable
                                 hover
                                 selectRow={selectRow}

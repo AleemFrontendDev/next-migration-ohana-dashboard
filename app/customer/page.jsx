@@ -696,7 +696,7 @@ export function Customers() {
                                 </h6>
                               </div>
                             </div>
-                            <div className="table-responsive">
+                            <div className="table-responsive w-[1150px]">
                               <BootstrapTable
                                 hover
                                 selectRow={selectRow}

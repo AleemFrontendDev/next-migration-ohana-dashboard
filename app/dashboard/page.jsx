@@ -399,7 +399,7 @@ const Dashboard = () => {
         var service_fee = type.service_fee;
         var processing_fee = type.processing_fee;
         var currency = type.currency;
-        let parsedUsdRate = usdRate ? JSON.parse(usdRate) : null;
+        let parsedUsdRate = usdRate ? JSON?.parse(usdRate) : null;
         var currentRate = parsedUsdRate?.rates?.[currency]?.rate || 1;
         var calculated = 0;
         if (type.status == "Completed") {

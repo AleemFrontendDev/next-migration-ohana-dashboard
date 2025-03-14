@@ -1,11 +1,13 @@
+'use client'
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
-
-import useInterval, { BASE_URL, ROUTES } from "../basic-ui/common";
-import useCountry from "../hooks/useCountry";
-import useUser from "../hooks/useUser";
-import PageLayout from "../layout/layout";
+import Link from "next/link";
+import useInterval, { BASE_URL, ROUTES } from "@/utils/common";
+import useCountry from "@/hooks/useCountry";
+import useUser from "@/hooks/useUser";
+import PageLayout from "@/components/layout/PageLayout";
 import { useAuthToken } from "@/utils/useAuthToken";
+import { useParams } from "next/navigation";
+import Image from "next/image";
 
 export function CustomerDetails() {
   const { id } = useParams();
@@ -27,7 +29,6 @@ export function CustomerDetails() {
     });
 
     const jsonData = await response.json();
-    console.log("org-users by id Api Response", jsonData);
     if (jsonData.success) {
       setCustomer(jsonData.customerDetails);
       setSpinner(false);
@@ -45,9 +46,10 @@ export function CustomerDetails() {
   };
 
   useEffect(() => {
+    if(!authToken) return;
     setSpinner(true);
     fetchCustomerAndPermissions();
-  }, [country]);
+  }, [authToken, country]);
 
   useInterval(fetchCustomerAndPermissions, 20000, 5);
 
@@ -64,7 +66,7 @@ export function CustomerDetails() {
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb">
                 <li className="breadcrumb-item">
-                  <Link className="nav-link" to={ROUTES?.customer}>
+                  <Link className="nav-link" href={ROUTES?.customer}>
                     Customers
                   </Link>
                 </li>
@@ -77,9 +79,10 @@ export function CustomerDetails() {
           <div className="row">
             <div className="col-4 col-xs-12 col-sm-4">
               <figure>
-                <img
+                <Image
                   className="img-circle img-responsive"
-                  height="300"
+                  width={300}
+                  height={300}
                   alt={customer?.first_name + " " + customer?.last_name}
                   src={
                     customer?.profile_url
@@ -89,7 +92,7 @@ export function CustomerDetails() {
                 />
               </figure>
             </div>
-            <div className="col-8 col-xs-12 col-sm-8">
+            <div className="col-8 col-xs-12 col-sm-8 mb-5">
               <ul className="list-group">
                 <li className="list-group-item">
                   {customer?.first_name + " " + customer?.last_name}
@@ -115,7 +118,7 @@ export function CustomerDetails() {
             </div>
           </div>
           <hr />
-          <div className="row">
+          <div className="row mt-5">
             <div className="col-7">
               <div className="card">
                 <div className="card-header">Other Details</div>
@@ -143,8 +146,10 @@ export function CustomerDetails() {
             </div>
             <div className="col-5">
               {customer?.id_card_url ? (
-                <img
+                <Image
                   className="img-circle img-responsive w-100"
+                  width={300}
+                  height={200}
                   src={customer?.id_card_url}
                   alt={customer?.first_name + " " + customer?.last_name}
                 />

@@ -68,7 +68,6 @@ function GroupUsers() {
       }
 
       const jsonData = await response.json();
-      console.log("Group User Api response jsonData", jsonData);
       if (jsonData.status === "success") {
         const { data } = jsonData;
         setSpinner(false);
@@ -104,7 +103,6 @@ function GroupUsers() {
         setAuthUser(user);
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
     }
   };
 
@@ -262,7 +260,6 @@ function GroupUsers() {
   };
 
   const messageSend = async () => {
-    console.log("Auth User", authUser);
     if (textMessage && selectedUser && permissions && permissions.add) {
       // Chat Data
       const data = {

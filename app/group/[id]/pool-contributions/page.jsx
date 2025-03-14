@@ -40,7 +40,6 @@ export function PoolContributions() {
   const [groupData, setGroupData] = useState(null);
   const [poolData, setPoolData] = useState(null);
   const [pool_type, setPoolType] = useState();
-  console.log("orgData?.org_nam", orgData?.org_name);
 
   const fetchPermissionsAndContributions = async () => {
     const response = await fetch(
@@ -69,7 +68,6 @@ export function PoolContributions() {
     );
 
     const jsonData = await response.json();
-    console.log("fetchPermissionsAndContributions Api response", jsonData);
     if (jsonData.status === "success") {
       const { data } = jsonData;
       setSpinner(false);
@@ -108,8 +106,10 @@ export function PoolContributions() {
   };
 
   useEffect(() => {
+    if(!authToken) return;
     fetchPermissionsAndContributions();
   }, [
+    authToken,
     totalTransactions,
     country,
     page,
@@ -174,7 +174,6 @@ export function PoolContributions() {
       text: <Trans>User Name</Trans>,
       // sort: true,
       formatter: (cell, row) => {
-        console.log("row", row);
         return (
           <Link href={ROUTES.orgappcustomer_id.replace(":id", row.user_id)}>
             {cell}
@@ -391,7 +390,7 @@ export function PoolContributions() {
                         </div>
                       </div>
                       <div className="row">
-                        <div className="col-lg-12 grid-margin stretch-card">
+                        <div className="flex items-center justify-between w-full px-3">
                           <div className="col pl-0">
                             <SizePerPageDropdownStandalone
                               {...paginationProps}

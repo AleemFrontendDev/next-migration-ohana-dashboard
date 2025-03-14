@@ -1,8 +1,10 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-
+// import { doc, updateDoc } from "firebase/firestore";
+// import db from "../../firebase-config";
+// import { Button } from "react-bootstrap";
 import useInterval, { BASE_URL, ROUTES } from "@/utils/common";
 import useCountry from "@/hooks/useCountry";
 import useUser from "@/hooks/useUser";
@@ -19,21 +21,25 @@ export function CustomerDetails() {
   const { user } = useUser();
 
   const fetchCustomerAndPermissions = async () => {
-    const response = await fetch(`${BASE_URL}/org-users/${id}`, {
-      method: "GET",
+    const response = await fetch(`${BASE_URL}/org-group-users?id=${id}`, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${authToken}`,
         "x-api-key": "Ohana-Agent-oo73",
       },
+      // body: JSON.stringify({ id }),
     });
 
     const jsonData = await response.json();
-    console.log("org-users by id Api Response", jsonData);
+
+    console.log("org-users GROUP   by id Api Response", jsonData);
+
     if (jsonData.success) {
       setCustomer(jsonData.customerDetails);
       setSpinner(false);
     }
+
     if (user || !user?.role_id) {
       setPermissions({ add: true, view: true, edit: true, delete: true });
     } else {
@@ -53,17 +59,13 @@ export function CustomerDetails() {
 
   useInterval(fetchCustomerAndPermissions, 20000, 5);
 
-  // if (!customer) {
-  //     return (<Redirect to={ ROUTES.customer } />);
-  // } else {
-
   return (
     <PageLayout permissions={permissions} spinner={spinner}>
       {permissions && !spinner && (
         <>
-          <div className="flex flex-col gap-14 mb-4">
+          <div className="flex flex-col gap-16">
             <div className="page-header">
-              <h3 className="page-title">{id}</h3>
+              {/* <h3 className="page-title">{id}</h3> */}
               <nav aria-label="breadcrumb">
                 <ol className="breadcrumb">
                   <li className="breadcrumb-item">
@@ -112,7 +114,8 @@ export function CustomerDetails() {
                     {customer?.country ? customer?.country?.nicename : ""}{" "}
                   </li>
                   <li className="list-group-item">
-                    {customer?.balance} {customer?.currency?.code}{" "}
+                    <i className="mdi mdi-currency-usd"></i> {customer?.balance}{" "}
+                    {customer?.currency}{" "}
                   </li>
                 </ul>
               </div>
@@ -124,7 +127,7 @@ export function CustomerDetails() {
                   <div className="card-header">Other Details</div>
                   <div className="card-body">
                     <div className="row">
-                      <div className="col-sm-5 col-xs-6 tital">
+                      <div className="col-sm-5 col-xs-6 tital ">
                         Contributed Pools:
                       </div>
                       <div className="col-sm-7 col-xs-6 ">
@@ -134,12 +137,12 @@ export function CustomerDetails() {
                     <div className="clearfix"></div>
                     <hr />
                     <div className="row">
-                      <div className="col-sm-5 col-xs-6 tital">
+                      <div className="col-sm-5 col-xs-6 tital ">
                         Contributions:
                       </div>
                       <div className="col-sm-7">
-                        {customer?.total_contributions}{" "}
-                        {customer?.currency?.code}{" "}
+                        {" "}
+                        {customer?.total_contributions} {customer?.currency}{" "}
                       </div>
                     </div>
                   </div>

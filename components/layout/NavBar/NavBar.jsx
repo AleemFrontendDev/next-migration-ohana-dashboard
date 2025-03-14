@@ -2,7 +2,7 @@
 
 import * as Tabs from '@radix-ui/react-tabs';
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import { Trans, useTranslation } from "react-i18next";
 import { Menu, Globe, ChevronDown } from "lucide-react";
@@ -27,7 +27,7 @@ const languageOptions = [
   { name: "French", value: "fr" },
 ];
 
-const Navbar = ({ isMenuOpen, setIsMenuOpen, isMobileMenuOpen, setisMobileMenuOpen }) => {
+const Navbar = ({ isMenuOpen, isMobileMenuOpen, setisMobileMenuOpen }) => {
   const router = useRouter();
   const { i18n } = useTranslation();
   const { countryChange } = useCountry();
@@ -136,51 +136,60 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen, isMobileMenuOpen, setisMobileMenuOp
     router.push("/login");
   };
 
-  return (
-    <nav className={`fixed md:h-[60px] ${isMenuOpen ? "w-full md:w-[95%]" : "w-full md:w-[85%]"} z-50 flex flex-col md:flex-row items-center justify-between bg-black px-4 py-3`}>
+  const pathname = usePathname();
 
-      <div className="flex items-center space-x-4 w-full md:w-auto ml-10 md:m-0">
-        <div className="flex md:hidden items-center">
-        <Image
-          src={`/assets/images/logo-mini.png`}
-          alt="Ohana Africa"
-          className="w-full h-full object-cover"
-          width={50}
-          height={50}
-        />
-        </div>
-        <button className="group focus:outline-none focus:ring-0 p-2 md:block" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-          <Menu className="w-6 h-6 text-white group-hover:text-black" />
+  const isGroupActive = pathname === "/group";
+  const isOrgActive = pathname === "/organization";
+
+
+  return (
+    <nav className={`fixed md:h-[60px] ${isMenuOpen ? "w-full md:w-[95%]" : "w-full md:w-[85%]"} z-50 flex items-center justify-between gap-4 bg-black px-4 py-3`}>
+
+      <div className="flex items-center">
+        <button className="focus:outline-none focus:ring-0 p-1 mr-2 md:hidden" onClick={() => setisMobileMenuOpen(!isMobileMenuOpen)}>
+          <Image
+            src={`/arrow.svg`}
+            alt="Arrow icon"
+            className="mr-4 mb-2 cursor-pointer filter invert rotate-180"
+            width={15}
+            height={15}
+          />
         </button>
 
-        <Tabs.Root
-          defaultValue="user-groups"
-          className="flex items-center space-x-2 md:space-x-4 bg-white text-black p-1 rounded-lg w-full md:w-auto overflow-auto"
-        >
-          <Tabs.List className="flex space-x-1 md:space-x-2">
-            <Tabs.Trigger
-              value="user-groups"
-              className="px-3 md:px-4 py-2 text-md font-medium rounded-lg focus:outline-none transition-colors 
-                data-[state=active]:bg-[#F5BE4A] data-[state=active]:text-black"
-            >
-              User Groups
-            </Tabs.Trigger>
-            <Tabs.Trigger
-              value="org-groups"
-              className="px-3 md:px-4 py-2 text-md font-medium rounded-lg focus:outline-none transition-colors 
-                data-[state=active]:bg-[#ffbb22] data-[state=active]:text-black"
-            >
-              Org Groups
-            </Tabs.Trigger>
-            <Tabs.Trigger
-              value="open-saving-groups"
-              className="px-3 md:px-4 py-2 text-md font-medium rounded-lg focus:outline-none transition-colors 
-                data-[state=active]:bg-[#ffbb22] data-[state=active]:text-black"
-            >
-              Open Saving Groups
-            </Tabs.Trigger>
-          </Tabs.List>
-        </Tabs.Root>
+        {/* Switch Tabs */}
+        <div className="hidden md:flex items-center space-x-2 md:space-x-4 bg-white text-black p-1 rounded-lg w-full md:w-auto overflow-auto">
+          {/* User Groups button */}
+          <Link
+            href="/group"
+            className={`px-3 md:px-4 py-2 text-md font-medium rounded-lg focus:outline-none transition-colors 
+              text-black no-underline hover:text-black hover:no-underline
+              ${isGroupActive ? "bg-[#F5BE4A] text-black" : "bg-transparent"}`}
+          >
+            User Groups
+          </Link>
+
+          {/* Org Groups button */}
+          <Link
+            href="/organization"
+            className={`px-3 md:px-4 py-2 text-md font-medium rounded-lg focus:outline-none transition-colors 
+              text-black no-underline hover:text-black hover:no-underline
+              ${isOrgActive ? "bg-[#F5BE4A] text-black" : "bg-transparent"}`}
+          >
+            Org Groups
+          </Link>
+
+          {/* Open Saving Groups button (currently does nothing) */}
+          <button
+            type="button"
+            className="px-3 md:px-4 py-2 text-md font-medium rounded-lg focus:outline-none transition-colors bg-transparent"
+            onClick={() => {
+              // Do nothing for now or implement later
+              console.log("Open Saving Groups clicked");
+            }}
+          >
+            Open Saving Groups
+          </button>
+        </div>
       </div>
 
 
@@ -241,10 +250,6 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen, isMobileMenuOpen, setisMobileMenuOp
             <DropdownMenuItem onClick={handleLogout}>Sign Out</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-
-        <Button variant="ghost" className="group focus:outline-none focus:ring-0 p-2 outline-none border-0 md:hidden block" onClick={() => setisMobileMenuOpen(!isMobileMenuOpen)}>
-          <Menu className="w-6 h-6 text-gray-800" />
-        </Button>
       </div>
     </nav>
   );

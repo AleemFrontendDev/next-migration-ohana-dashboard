@@ -77,10 +77,11 @@ export default function EditUser() {
   };
 
   useEffect(() => {
+    if(!authToken) return;
     setSpinner(true);
     fetchPermissions();
     fetchUser();
-  }, [country]);
+  }, [authToken, country]);
 
   useInterval(fetchPermissions, 20000, 5);
 

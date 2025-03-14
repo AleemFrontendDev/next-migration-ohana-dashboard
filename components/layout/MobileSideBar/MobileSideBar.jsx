@@ -103,11 +103,11 @@ const MobileSideBar = ({ isMobileMenuOpen, setisMobileMenuOpen }) => {
   ];
 
   return (
-        <div
-            className={`fixed z-[999] top-0 left-0 w-full h-screen bg-[#33333334] flex ${isMobileMenuOpen ? 'block md:hidden' : 'hidden'}`}
-            onClick={() => setisMobileMenuOpen(false)}
-        >
-        <nav
+    <div
+      className={`fixed z-[999] top-0 left-0 w-full h-screen bg-[#33333334] flex ${isMobileMenuOpen ? 'block md:hidden' : 'hidden'}`}
+      onClick={() => setisMobileMenuOpen(false)}
+    >
+      <nav
             className="h-full w-[330px] bg-[#ffbb22] text-black transition-all text-[15px] font-[540] overflow-y-auto md:overflow-hidden"
             onClick={(e) => e.stopPropagation()}
         >

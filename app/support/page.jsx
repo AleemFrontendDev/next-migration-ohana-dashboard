@@ -316,7 +316,6 @@ export function Support() {
     <>
       {permissions && !spinner ? (
         <main className="content">
-          {users.length && supportChats.length > 0 ? (
             <div className="container p-0">
               <div className="card">
                 <div className="row g-0">
@@ -571,9 +570,6 @@ export function Support() {
                 </div>
               </div>
             </div>
-          ) : (
-            <h1 className="text-center mt-5 pt-5">No Support Chat Found.</h1>
-          )}
         </main>
       ) : spinner ? (
         <Spinner

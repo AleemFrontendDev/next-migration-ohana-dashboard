@@ -157,16 +157,16 @@ export function Users() {
                     <span className={ `py-1 px-2 rounded ${cell === 1  ? 'alert-warning' : 'alert-success'}` }>{ cell === 1  ? "Inactive" : "Active" }</span>
             }
         },
-        // {
-        //     dataField: 'view',
-        //     text: 'View',
-        //     formatter: (cell, row) => {
-        //         const html = <div className="icon-holder bg-secondary text-center p-2 rounded"><i className='mdi mdi-eye'></i></div>;
-        //         return ! row.role ? "" : permissions && permissions.view ?
-        //             <Link className="nav-link" to={ ROUTES.customer + "/" + row.id }>{ html }</Link>
-        //         : html
-        //     }
-        // },
+        {
+            dataField: 'view',
+            text: 'View',
+            formatter: (cell, row) => {
+                const html = <div className="icon-holder bg-secondary text-center p-2 rounded"><i className='mdi mdi-eye'></i></div>;
+                return ! row.role ? "" : permissions && permissions.view ?
+                    <Link className="nav-link" href={ ROUTES.customer + "/" + row.id }>{ html }</Link>
+                : html
+            }
+        },
         {
             dataField: 'edit',
             text: 'Edit',

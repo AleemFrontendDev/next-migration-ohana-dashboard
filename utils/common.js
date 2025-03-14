@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useRef } from "react";
 export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
