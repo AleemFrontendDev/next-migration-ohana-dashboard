@@ -40,7 +40,6 @@ function OrganizationAddForm({ initialData, countries }) {
     } catch (error) {
       console.error("Error saving admin to Firebase:", error);
       if (error.code === "auth/email-already-in-use") {
-        console.log("Admin already exist", adminData.email);
         const uid = await getUserUidByEmail(adminData.email);
         if (uid) {
           return { ...adminData, uid: uid, aleadyExist: true };
@@ -56,9 +55,7 @@ function OrganizationAddForm({ initialData, countries }) {
   async function getUserUidByEmail(email) {
     try {
       const signInMethods = await fetchSignInMethodsForEmail(db.auth, email);
-      console.log("SignInMethods:", signInMethods);
       if (signInMethods.length === 0) {
-        console.log("No user found with this email");
         return null;
       }
       const uid = signInMethods[0].localId;
@@ -87,12 +84,10 @@ function OrganizationAddForm({ initialData, countries }) {
       adminData.push({ ...data, country: data.country.value });
     });
 
-    console.log("adminData", adminData);
 
     const adminsWithUid = await Promise.all(
       adminData.map((admin) => saveAdminToFirebase(admin))
     );
-    console.log("Admins with Uid:", adminsWithUid);
     try {
       const adminsList = adminsWithUid.map((admin) => ({
         ...admin,
@@ -110,13 +105,11 @@ function OrganizationAddForm({ initialData, countries }) {
       });
 
       const responseData = await response.json();
-      console.log("Create Org Response:", responseData);
       if (responseData.status !== "success") {
         throw new Error(`Organization creation error: ${responseData.message}`);
       }
       if (responseData.status === "success") {
         history.push("/organization");
-        console.log("Organization created successfully!");
       } else {
         toast.error(`Error creating organization: ${responseData.message}`);
       }
@@ -167,7 +160,6 @@ function OrganizationAddForm({ initialData, countries }) {
         initialValues={initialData}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => {
-          console.log("Org Data values", values);
           createOrganization(values);
           setSubmitting(false);
         }}

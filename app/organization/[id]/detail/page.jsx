@@ -77,7 +77,6 @@ export function OrganizationDetail({ org_id, org_dahboard }) {
       }
 
       const jsonData = await response.json();
-      console.log("Get Organization By Id json data", jsonData);
       if (jsonData.status === "success") {
         const { data } = jsonData;
         setSpinner(false);
@@ -123,7 +122,6 @@ export function OrganizationDetail({ org_id, org_dahboard }) {
           }
         });
 
-        console.log("currienciesCalculationList", currienciesCalculationList);
         setTotalCalcultationData(currienciesCalculationList);
 
         setOrgData({

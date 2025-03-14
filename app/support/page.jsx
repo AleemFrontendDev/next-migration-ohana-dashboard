@@ -100,7 +100,6 @@ export function Support() {
         body: JSON.stringify({ userIds, search }),
       });
       const jsonData = await response.json();
-      console.log("users-by-ids api", jsonData);
       if (jsonData.success) {
         setUsers(jsonData.users);
         if (!selectedUser && jsonData.users.length) {

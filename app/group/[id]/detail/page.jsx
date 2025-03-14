@@ -54,10 +54,7 @@ function GroupDetail() {
   const [show, setShow] = useState(false);
   const [type, setType] = useState("");
   const [idpool, setidpool] = useState("");
-  console.log("idpool", idpool);
   const [updatedName, setUpdatedName] = useState("");
-  console.log("updatedName", updatedName);
-
   const handleClose = () => setShow(false);
   const handleShow = (name, type, Id) => {
     setUpdatedName(name || "");

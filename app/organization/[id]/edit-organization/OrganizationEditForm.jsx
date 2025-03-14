@@ -22,7 +22,6 @@ const authToken = useAuthToken();
 const animatedComponents = makeAnimated();
 
 function OrganizationEditForm({ initialData, isEditing, id }) {
-  console.log("id 23", id);
 
   const [countries, setCountries] = useState([]);
   const history = useRouter();
@@ -56,7 +55,6 @@ function OrganizationEditForm({ initialData, isEditing, id }) {
           };
         }
       });
-      console.log("countryOptions", countryOptions);
       setCountries(countryOptions);
     }
   };
@@ -75,7 +73,6 @@ function OrganizationEditForm({ initialData, isEditing, id }) {
     } catch (error) {
       console.error("Error saving admin to Firebase:", error);
       if (error.code === "auth/email-already-in-use") {
-        console.log("Admin already exist", adminData.email);
         const uid = await getUserUidByEmail(adminData.email);
         if (uid) {
           return { ...adminData, uid: uid, aleadyExist: true };
@@ -91,9 +88,7 @@ function OrganizationEditForm({ initialData, isEditing, id }) {
   async function getUserUidByEmail(email) {
     try {
       const signInMethods = await fetchSignInMethodsForEmail(db.auth, email);
-      console.log("SignInMethods:", signInMethods);
       if (signInMethods.length === 0) {
-        console.log("No user found with this email");
         return null;
       }
       const uid = signInMethods[0].localId;
@@ -112,14 +107,10 @@ function OrganizationEditForm({ initialData, isEditing, id }) {
         newadminData.push({ ...data, country: data.country.value });
       });
 
-      console.log("newadminData", newadminData);
-
       const adminsWithUid = await Promise.all(
         newadminData.map((admin) => saveAdminToFirebase(admin))
       );
-      console.log("Admins with Uid:", adminsWithUid);
       const newData = { ...data, new_admins: adminsWithUid };
-      console.log("newData", newData);
 
       const response = await fetch(`${BASE_URL}/organization-update`, {
         method: "POST",
@@ -130,17 +121,14 @@ function OrganizationEditForm({ initialData, isEditing, id }) {
         },
         body: JSON.stringify(newData),
       });
-      console.log("Response", response);
       if (!response.ok) {
         throw new Error(`API request failed with status ${response.status}`);
       }
       const responseData = await response.json();
-      console.log("Response Data:", responseData);
       if (responseData.status !== "success") {
         throw new Error(`Organization Updating Error: ${responseData.message}`);
       }
       history.push("/organization");
-      console.log("Organization Update successfully!");
     } catch (error) {
       console.error("Error in Update organization:", error);
       toast.error(`Error in Update organization: ${error.message}`);
@@ -189,7 +177,6 @@ function OrganizationEditForm({ initialData, isEditing, id }) {
         initialValues={initialData}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => {
-          console.log("Org Data values", values);
           editOrganization(values);
           setSubmitting(false);
         }}
@@ -310,7 +297,6 @@ function OrganizationEditForm({ initialData, isEditing, id }) {
                           <tbody>
                             {values?.admins?.map(
                               (admin, index) => (
-                                console.log("admin 301  ", admin),
                                 (
                                   <tr key={index}>
                                     <td>{index + 1}</td>
@@ -441,7 +427,6 @@ function OrganizationEditForm({ initialData, isEditing, id }) {
                                   defaultValue={`new_admins.${index}.country`}
                                   options={countries}
                                   onChange={(option) => {
-                                    console.log("option", option);
                                     setFieldValue(
                                       `new_admins.${index}.country`,
                                       option

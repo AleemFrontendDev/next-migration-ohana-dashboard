@@ -31,9 +31,7 @@ export function DeviceUpdate() {
   const [orphanUsers, setOrphanUsers] = useState([0]);
   const [message, setMessage] = useState(false);
   const [device, setDevice] = useState([]); 
-  console.log(device, "DEVICE 31");
   const [userData, setUser] = useState([]);
-  console.log(userData, "userData 33");
   const [authUser, setAuthUser] = useState(0);
   const [permissions, setPermissions] = useState(0);
   const [spinner, setSpinner] = useState(true);
@@ -116,7 +114,6 @@ export function DeviceUpdate() {
   //   }
 
   const handleDataUpdate = async (id, phone) => {
-    console.log("fetcching data call");
     try {
       const response = await fetch(`${BASE_URL}/v1/update-user-new-device`, {
         method: "POST",
@@ -138,7 +135,6 @@ export function DeviceUpdate() {
       }
 
       const jsonData = await response.json();
-      console.log("json data", jsonData);
       if (jsonData.status === "success") {
         fetchPermissionsAuthUserAndUsers();
         toast.success(jsonData.message);
@@ -180,7 +176,6 @@ export function DeviceUpdate() {
       dataField: "view",
       text: <Trans>View</Trans>,
       formatter: (cell, row) => {
-        console.log("row 168", row);
         return (
           <Link
             className="nav-link icon-holder bg-[#dde4eb] flex items-center justify-center text-center p-2 rounded"

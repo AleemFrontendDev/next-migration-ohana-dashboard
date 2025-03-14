@@ -9,7 +9,6 @@ import { useAuthToken } from "@/utils/useAuthToken";
 
 function EditOrganization() {
   const { id } = useParams();
-  console.log("Organization id", id);
   const [permissions, setPermissions] = useState(0);
   const [spinner, setSpinner] = useState(true);
   const { user } = useUser();
@@ -33,12 +32,10 @@ function EditOrganization() {
       }
 
       const jsonData = await response.json();
-      console.log("Get Organization By Id json data", jsonData);
       if (jsonData.status === "success") {
         const { data } = jsonData;
         const admins = [];
         data.admins.forEach((data) => {
-          console.log("data 38", data);
           admins.push({
             app_id: data.app_admin_id,
             id: data.id,
@@ -63,7 +60,6 @@ function EditOrganization() {
       if (user || !user?.role_id) {
         setPermissions({ add: true, view: true, edit: true, delete: true });
       } else {
-        console.log("user", user.role.permissions);
         var editOrganizationPermission = user.role.permissions.filter(
           (permission) => permission.section === "Organizations"
         );
@@ -77,7 +73,6 @@ function EditOrganization() {
         }
       }
 
-      console.log("Response Data:", jsonData);
       // setadminsData(jsonData.admins.app_admin_id)
     } catch (error) {
       console.error("Error fetching data:", error);

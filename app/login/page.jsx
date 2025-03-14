@@ -34,11 +34,9 @@ export default function Login() {
         body: JSON.stringify({ email: email, password: password }),
       });
       const jsonData = await response.json();
-      console.log("Login Api Response: ", jsonData);
       if (jsonData.success) {
         localStorage.setItem("auth_token", jsonData.bearer);
         const user = jsonData.user;
-        console.log("User: ", user);
         if (user.account_rejected !== 0) {
           setError("Your Account has been rejected!");
           signOut(db.auth)
@@ -93,17 +91,14 @@ export default function Login() {
               );
               localStorage.setItem("loggedInUser", JSON.stringify(user));
 
-              console.log("user loggin krne ke bad ")
               userChange(user);
             }
             getUSDRateApi();
-            console.log("working 100")
 
             if (user.role.status == true) {
               const permissionsList = user.role.permissions.map(
                 (doc) => doc.section
               );
-              console.log("permissionsList", permissionsList);
               const findSection = (term) => {
                 if (permissionsList.includes(term)) {
                   return permissionsList;
@@ -168,7 +163,6 @@ export default function Login() {
       },
     });
     const rates = await rate.json();
-    console.log("getUSDRate Api Response", rates);
     localStorage.setItem("usd_rates", JSON.stringify(rates.rates));
   };
   return (

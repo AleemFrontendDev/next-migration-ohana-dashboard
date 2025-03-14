@@ -22,7 +22,6 @@ import { useAuthToken } from "@/utils/useAuthToken";
 export function ManualPayment() {
   const [manualPayments, setManualPayments] = useState([]);
   const [permissions, setPermissions] = useState(0);
-  console.log("permission", permissions);
   const [spinner, setSpinner] = useState(true);
   const [filter, setFilter] = useState("");
   const { country } = useCountry();
@@ -65,7 +64,6 @@ export function ManualPayment() {
       var manualPaymentPermission = user.role.permissions.filter(
         (permission) => permission.section === "Manual Payment"
       );
-      console.log("maual payment permission 64", manualPaymentPermission);
 
       if (manualPaymentPermission.length && manualPaymentPermission[0].status) {
         setPermissions(...manualPaymentPermission);

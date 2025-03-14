@@ -184,7 +184,7 @@ export function OrganizationGroupTable({ org_id }) {
           // Created New Support Chat For Targeted User.
           await setDoc(receiverChatCol, data);
         } else {
-          await updateDoc(receiverChatCol, data);
+           await updateDoc(receiverChatCol, data);
         }
 
         // Created New Message For Receiver User.
@@ -264,7 +264,6 @@ export function OrganizationGroupTable({ org_id }) {
   };
 
   const messageSend = async () => {
-    console.log("Auth User", authUser);
     if (textMessage && selectedUser && permissions && permissions.add) {
       // Chat Data
       const data = {

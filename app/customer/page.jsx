@@ -62,7 +62,6 @@ export function Customers() {
       }
     );
     const jsonData = await response.json();
-    console.log("jsonData", jsonData);
     if (jsonData.success) {
       setSpinner(false);
       setUsers(jsonData.customers.data);
@@ -225,7 +224,6 @@ export function Customers() {
   useInterval(fetchPermissionsAuthUserAndUsers, 20000, 5);
 
   function priceFormatter(cell, row) {
-    console.log("row data", row);
     return (
       <span>
         {" "}
@@ -329,7 +327,6 @@ export function Customers() {
           <BootstrapSwitchButton
             checked={cell === 0}
             onChange={(check) => {
-              console.log("check  344", check);
               statusChange(check ? 0 : 1, row);
             }}
             onlabel="On"

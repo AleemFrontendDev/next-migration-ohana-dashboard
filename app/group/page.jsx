@@ -38,7 +38,6 @@ export function Group() {
   const [activeGroups, setActiveGroups] = useState([]);
   const [orphanGroups, setOrphanGroups] = useState([]);
   const [totalCalcultationData, setTotalCalcultationData] = useState([0]);
-  console.log("TotalCalcultationData 38", totalCalcultationData);
   const [groupAdmin, setGroupAdmin] = useState({});
   const [groupAdmins, setGroupAdmins] = useState([]);
   const [groupMembers, setGroupMembers] = useState([]);
@@ -61,7 +60,6 @@ export function Group() {
   const [Deletegroup, setDeletegroup] = useState(false);
   const handleClose1 = () => setDeletegroup(false);
   const [Groupmember, setGroupmember] = useState(false);
-  console.log(Groupmember, "group member 49");
   const handleClose2 = () => setGroupmember(false);
   const [message, setMessage] = useState(false);
   const { country } = useCountry();
@@ -83,7 +81,6 @@ export function Group() {
       }
     );
     const jsonData = await response.json();
-    console.log("fetchGroupsAndPermissions Api", jsonData);
     if (jsonData.success) {
       setSpinner(false);
       setGroups(jsonData.groups.data);
@@ -95,14 +92,9 @@ export function Group() {
     }
 
     const totalCalculation = jsonData.amountInPools.reduce((acc, curr) => {
-      console.log("acc 97", acc);
       // step 1 accumulator in reducer holds the initial value or 0
-      console.log("curr 96", curr);
       const [amount, currency] = curr.amount.split(" ");
-      console.log("amount", amount);
-      console.log("currency", currency);
       if (!acc[currency]) {
-        console.log("acc[currency]", !acc[currency]);
         acc[currency] = parseFloat(amount); // agr currency sign different ha tu different show hon
       } else {
         acc[currency] += parseFloat(amount); // agr currency sign  same ha tu wo curreny me amount add ho jay
@@ -504,16 +496,13 @@ export function Group() {
   };
 
   const statusChange = async (check, row) => {
-    console.log("row", "check 425", row, check);
     // Update Group Status.
     if (permissions.edit) {
       const groupCol = doc(db.db, "groups", row.group_id);
 
       const groupData = await getDoc(groupCol);
-      console.log("groupData 431", groupData);
 
       const getGroupData = groupData.data();
-      console.log("getGroupData 433", getGroupData);
     }
   };
 
@@ -584,7 +573,6 @@ export function Group() {
           <BootstrapSwitchButton
             checked={cell == 1}
             onChange={(check) => {
-              console.log("check", check);
               statusChange(check, row);
             }}
             onlabel="On"

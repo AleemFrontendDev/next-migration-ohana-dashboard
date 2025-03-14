@@ -60,7 +60,6 @@ export default function EditCustomer() {
 
   const fetchPermissions = async () => {
     if (!user?.role_id) {
-      console.log("user 60", user?.role_id);
       setPermissions({ add: true, view: true, edit: true, delete: true });
     } else {
       var idVerificationPermission = user.role.permissions.filter(

@@ -14,7 +14,6 @@ import { useAuthToken } from "@/utils/useAuthToken";
 export function CustomerDetails() {
   const { id } = useParams();
   const [customer, setCustomer] = useState({});
-  console.log("customer", customer.currency);
   const [permissions, setPermissions] = useState(0);
   const [spinner, setSpinner] = useState(false);
   const authToken = useAuthToken();
@@ -30,7 +29,6 @@ export function CustomerDetails() {
       },
     });
     const jsonData = await response.json();
-    console.log(jsonData)
     if (jsonData.success) {
       setSpinner(false);
       setCustomer(jsonData.customerDetails);

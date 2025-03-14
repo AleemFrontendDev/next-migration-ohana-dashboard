@@ -146,7 +146,6 @@ export function CustomerForm(props) {
                           name="account_rejected"
                           checked={values?.account_rejected == 0}
                           onChange={(checked) => {
-                            console.log("checked 156", checked);
                             setFieldValue("account_rejected", checked ? 0 : 1);
                           }}
                           onBlur={handleBlur}

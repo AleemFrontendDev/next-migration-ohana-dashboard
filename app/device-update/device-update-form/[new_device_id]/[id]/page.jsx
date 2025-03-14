@@ -110,7 +110,6 @@ export function DeviceUpdateForm() {
   ];
 
   const handleUpdateAction = async (status) => {
-    console.log("status", status);
 
     const response = await fetch(`${BASE_URL}/v1/update-user-new-device`, {
       method: "POST",
